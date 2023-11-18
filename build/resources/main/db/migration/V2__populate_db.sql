@@ -15,7 +15,7 @@ INSERT INTO planets (id, name) VALUES
     ('ALDERAAN', 'Alderaan'),
     ('ENDOR', 'Endor'),
     ('HOTH', 'Hoth'),
-    ('NABOO', 'Naboo');
+    ('NAB007', 'Naboo');
 
 --INSERT INTO tickets (created_at, client_id, from_planet_id, to_planet_id) VALUES
 --    ('1977-05-25 08:00:00', 1, 'TATOOINE', 'ALDERAAN'),

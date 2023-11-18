@@ -5,6 +5,7 @@ import org.example.entities.Client;
 import java.util.List;
 
 public interface ClientDao {
+
     boolean createClient(Client client);
 
     boolean updateClient(Client client);

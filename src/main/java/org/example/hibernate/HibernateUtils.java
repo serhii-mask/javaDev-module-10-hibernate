@@ -35,8 +35,6 @@ public class HibernateUtils {
         this.sessionFactory.close();
     }
 
-    /* Flyway */
-
     private void flywayMigration(String connectionUrl, String username, String password) {
         Flyway flyway = Flyway.configure().dataSource(connectionUrl, username, password).load();
         flyway.migrate();

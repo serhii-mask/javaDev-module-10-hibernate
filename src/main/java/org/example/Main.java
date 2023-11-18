@@ -5,9 +5,7 @@ import org.example.entities.Planet;
 import org.example.repository.ClientCrudService;
 import org.example.repository.PlanetCrudService;
 
-import java.net.NoRouteToHostException;
 import java.util.List;
-import java.util.UUID;
 
 public class Main {
 
@@ -33,15 +31,22 @@ public class Main {
         List<Client> clients = clientService.getAllClients();
         System.out.println("clients = " + clients.toString());
 
+        System.out.println("----------------------------");
 
         PlanetCrudService planetService = new PlanetCrudService();
 
         Planet newPlanet = new Planet();
         newPlanet.setId("EARTH");
         newPlanet.setName("Earth");
+        Planet planetCoruscant = new Planet();
+        planetCoruscant.setId("NAB007");
+        planetCoruscant.setName("Coruscant");
 
         planetService.createPlanet(newPlanet);
+        planetService.updatePlanet(planetCoruscant);
+        planetService.deletePlanetById("HOTH");
         Planet planetEndor = planetService.getPlanetById("ENDOR");
+        System.out.println("planetEndor = " + planetEndor);
         planetService.deletePlanet(planetEndor);
         List<Planet> planets = planetService.getAllPlanets();
         System.out.println("planets = " + planets.toString());

@@ -33,7 +33,7 @@ public class PropertyReader {
 
             if (input == null) {
                 System.out.println("Sorry, unable to find hibernate.properties");
-                return null;
+                throw new NullPointerException("Input is NULL");
             }
 
             prop.load(input);
@@ -43,6 +43,10 @@ public class PropertyReader {
             ex.printStackTrace();
             return Optional.empty();
         }
+    }
+
+    private PropertyReader() {
+        throw new IllegalStateException("PropertyReader class");
     }
 }
 

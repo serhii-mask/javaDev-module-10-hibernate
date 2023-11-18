@@ -1,6 +1,5 @@
 package org.example.repository;
 
-import org.example.entities.Client;
 import org.example.entities.Planet;
 import org.example.hibernate.HibernateUtils;
 import org.hibernate.Session;
@@ -19,8 +18,33 @@ public class PlanetCrudService implements PlanetDao {
 
         try (Session session = HibernateUtils.getInstance().getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
+
             try {
                 session.persist(planet);
+                transaction.commit();
+                result = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                transaction.rollback();
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean updatePlanet(Planet planet) {
+        boolean result = false;
+
+        if (Objects.isNull(planet.getId())) {
+            return false;
+        }
+
+        try (Session session = HibernateUtils.getInstance().getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            try {
+                session.merge(planet);
                 transaction.commit();
                 result = true;
             } catch (Exception e) {
@@ -43,6 +67,16 @@ public class PlanetCrudService implements PlanetDao {
     public List<Planet> getAllPlanets() {
         try (Session session = HibernateUtils.getInstance().getSessionFactory().openSession()) {
             return session.createQuery(GET_ALL_PLANET_QUERY, Planet.class).list();
+        }
+    }
+
+    @Override
+    public void deletePlanetById(String planetId) {
+        try (Session session = HibernateUtils.getInstance().getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Planet existing = session.get(Planet.class, planetId);
+            session.remove(existing);
+            transaction.commit();
         }
     }
 

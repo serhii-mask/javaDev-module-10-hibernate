@@ -15,8 +15,10 @@ public class ClientCrudService implements ClientDao {
     @Override
     public boolean createClient(Client client) {
         boolean result = false;
+
         try (Session session = HibernateUtils.getInstance().getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
+
             try {
                 client.setId(null);
                 session.persist(client);
@@ -34,11 +36,14 @@ public class ClientCrudService implements ClientDao {
     @Override
     public boolean updateClient(Client client) {
         boolean result = false;
+
         if (Objects.isNull(client.getId())) {
             return false;
         }
+
         try (Session session = HibernateUtils.getInstance().getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
+
             try {
                 session.merge(client);
                 transaction.commit();
