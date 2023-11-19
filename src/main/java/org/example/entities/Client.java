@@ -1,6 +1,7 @@
 package org.example.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "clients")
@@ -11,6 +12,7 @@ public class Client {
     private Long id;
 
     @Column
+    @Size(min = 3, max = 200, message = "Name must be between 3 and 200 characters")
     private String name;
 
     public void setId(Long id) {
@@ -18,7 +20,6 @@ public class Client {
     }
 
     public void setName(String name) {
-        isValidClientName(name);
         this.name = name;
     }
 
@@ -32,11 +33,5 @@ public class Client {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
-    }
-
-    public static void isValidClientName(String name) {
-        if (name == null || name.length() < 3 || name.length() > 200) {
-            throw new IllegalArgumentException("Invalid client name");
-        }
     }
 }
